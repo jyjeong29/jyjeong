@@ -12,6 +12,8 @@
 //각각의 header file이 어떤 함수를 포함하는지 정리 해 둘 것
 
 // teraterm에서 enter를 입력하면, linux terminal에서 get 출력시 enter 자동 적용
+
+// github test 
 #include <stdio.h> //standard input output
 #include <stdlib.h>
 #include <string.h>
