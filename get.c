@@ -1,3 +1,7 @@
+//test
+//업로드 전 remote에서 수정 후, 로컬에서 push 해보고
+//remote가 변경된 그대로인지 아니면 원상복구 되는지 확인하기
+
 #include <stdio.h> //standard input output
 #include <stdlib.h>
 #include <string.h>
