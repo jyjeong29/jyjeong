@@ -1,4 +1,5 @@
 //test github upload
+//업로드 완료 되었고, 이제 pull test 해볼 것
 
 #include <stdio.h>
 #include <termios.h>
