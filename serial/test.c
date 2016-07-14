@@ -15,7 +15,7 @@
 //terminal <-> teraterm 간 통신 중 freezing
 //왜 이런 문제 생기는지 모르겠음 : 항상 teraterm만 멈춤
 //teraterm 설정은 Auto//cr 로 설정하면 됨
- 
+
 
 // teraterm에서 enter를 입력하면, linux terminal에서 get 출력시 enter 자동 적용
 //-> 해당 문제는 아래에서 해결 가능하지만 terminal에서 spacebar랑 enter 구분 안되는 문제 발생
@@ -46,7 +46,7 @@ int kbhit();// start to use keyboard
 int readch();// read data from keyboard input 
 
 
-int main( void)
+int main(void)
 {
 
 //############### keyboard init(키보드 초기화)
@@ -55,13 +55,17 @@ int main( void)
 //########################### //serial port open
 
 	int fd_send,fd;
-	fd_send = fd = open("/dev/ttyUSB0", O_RDWR ); //device 열기
+	fd_send = fd = open("/dev/ttyUSB0", O_RDWR | O_NONBLOCK); //device 열기
 	//fd = open( "/dev/ttyUSB0", O_RDWR | O_NOCTTY | O_NONBLOCK );
 	// O_RDWR와 같은 option의 의미를 모르겠다.
+	// o_rdwr = read + write 쓰기, 읽기 모두 되도록 하겠다.
+	// noctty = ctrl + c key를 이용해서 종료되지 않도록 하겠다.
+	// o_nonblock = 읽을 내용이 없을 때에는 기다리지않고, 바로 복귀
+	// 대충 open func를 불렀을때 dev나 file이 출력 되는지를 확인하는데, 
+	// 장비가 있는지 없는지에따라 return값을 달라지게 해 주는 옵션인듯
+	//set = -1, unset = 0
 
-
-//########################### //의미를 모르겠는 data들
-
+// 이거 보니깐 fd랑 fd_open 둘 중에 하나만 열면 되는거였네
 
 //########################### //port configure
 
@@ -181,7 +185,7 @@ int main( void)
                 {
                         if(poll_events.revents & POLLIN) // event 가 자료 수신?
                         {
-                                cnt = read(fd, buf, 1024); //terminal에서 입력한 data
+                                cnt = read(fd, buf, 1024); //terminal에서 입력한 data의 길이
                                 write( fd, buf, cnt);
                                 printf( " get : %d %s\r\n", cnt, buf);
                         }
